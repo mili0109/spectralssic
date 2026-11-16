@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isFriendOf(ownerId) {
+      return exists(/databases/$(database)/documents/users/$(ownerId)/friends/$(request.auth.uid));
+    }
+
+    // Nombres de usuario únicos (@usuario -> uid)
+    match /usernames/{handle} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+
+    match /users/{uid} {
+      // Perfil: dueño, público, o amigo
+      allow read: if signedIn() && (request.auth.uid == uid || resource.data.isPublic == true || isFriendOf(uid));
+      allow write: if signedIn() && request.auth.uid == uid;
+
+      // Solicitudes de amistad recibidas
+      match /requests/{fromUid} {
+        allow create: if signedIn() && request.auth.uid == fromUid && fromUid != uid;
+        allow read, delete: if signedIn() && request.auth.uid == uid;
+      }
+
+      // Lista de amigos
+      match /friends/{friendId} {
+        allow read, write: if signedIn() && request.auth.uid == uid;
+        // Al aceptar, el otro usuario se agrega a mi lista solo si yo le envié solicitud
+        allow create: if signedIn() && request.auth.uid == friendId
+          && exists(/databases/$(database)/documents/users/$(request.auth.uid)/requests/$(uid));
+        allow delete: if signedIn() && request.auth.uid == friendId;
+      }
+    }
+  }
+}
