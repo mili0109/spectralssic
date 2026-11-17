@@ -6,17 +6,12 @@
 
 ---
 
-## Achievements
-<a href="https://trendshift.io/repositories/160234?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-160234" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/160234" alt="SpectralssicApp%2FEcho-Music | Trendshift" width="250" height="55"/></a> <a href="https://trendshift.io/repositories/160234?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-160234" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/160234/monthly?language=Kotlin" alt="SpectralssicApp%2FEcho-Music | Trendshift" width="250" height="55"/></a>
-
----
-
 ## Overview
 
 Spectralssic delivers a seamless, premium listening experience by leveraging YouTube Music's vast library — without the ads. It adds powerful extras including offline downloads, real-time synchronized lyrics, and environment-aware music recognition.
 
 > [!NOTE]
-> **Spectralssic** es una versión modificada de un proyecto de código abierto (Echo Music, de iad1tya), publicada bajo la licencia **GPL-3.0**. Gracias al autor original y a todos los proyectos listados en *Special Thanks*.
+> **Spectralssic** es una versión modificada de un proyecto de código abierto (Spectralssic Music, de iad1tya), publicada bajo la licencia **GPL-3.0**. Gracias al autor original y a todos los proyectos listados en *Special Thanks*.
 
 ## Comunidad
 
@@ -26,7 +21,7 @@ Spectralssic delivers a seamless, premium listening experience by leveraging You
 
 Ve a la sección **[Releases](../../releases)** de este repositorio y descarga el archivo `.apk` de la última versión. Al instalarlo, Android te pedirá permitir la instalación desde fuentes desconocidas (es normal para apps fuera de Google Play).
 
-## Qué cambia respecto a Spectralssic
+## Qué incluye
 
 - Tema morado y negro por defecto.
 - Fondo del reproductor personalizable: portada con blur ajustable, colores, degradados e imagen propia.
@@ -40,11 +35,8 @@ Ve a la sección **[Releases](../../releases)** de este repositorio y descarga e
 - [Overview](#overview)
 - [Screenshots](#screenshots)
 - [Features](#features)
-- [320 kbps Audio Extension](#320-kbps-audio-extension)
-- [Lossless Audio Extension](#lossless-audio-extension)
 - [Installation & Setup](#installation--setup)
 - [Support the Project](#support-the-project)
-- [Contributors](#contributors)
 - [Special Thanks](#special-thanks)
 
 ---
@@ -99,8 +91,8 @@ Ve a la sección **[Releases](../../releases)** de este repositorio y descarga e
 <br>
 
 - **Ad-Free** — Stream without any interruptions.
-- **Lossless & Hi-Res Audio Streaming** — Stream uncompressed studio-quality FLAC/ALAC up to 24-bit/192kHz with the [lossless-extension](https://github.com/SpectralssicApp/lossless-extension).
-- **High-Quality 320 kbps Streaming** — Stream crystal-clear 320 kbps audio with the [320kbs-extension](https://github.com/SpectralssicApp/320kbs-extension).
+- **Lossless & Hi-Res Audio Streaming** — Stream uncompressed studio-quality FLAC/ALAC up to 24-bit/192kHz.
+- **High-Quality 320 kbps Streaming** — Stream crystal-clear 320 kbps audio.
 - **Data Saver Mode** — Reduce data consumption when streaming on cellular networks.
 - **Seamless Playback** — Switch effortlessly between audio-only and video modes.
 - **Background Playback** — Listen while using other apps or with the screen off.
@@ -111,11 +103,11 @@ Ve a la sección **[Releases](../../releases)** de este repositorio y descarga e
 </details>
 
 <details>
-<summary><b>Discovery & Echo Find</b></summary>
+<summary><b>Discovery & Spectralssic Find</b></summary>
 <br>
 
-- **Echo Find** — Identify songs playing around you using advanced audio recognition.
-- **Echo Brain** — An intelligent, on-device engine that analyzes your listening momentum and auto-injects perfectly aligned tracks into your queue.
+- **Spectralssic Find** — Identify songs playing around you using advanced audio recognition.
+- **Spectralssic Brain** — An intelligent, on-device engine that analyzes your listening momentum and auto-injects perfectly aligned tracks into your queue.
 - **Smart Recommendations** — Personalized suggestions based on your listening history.
 - **Comprehensive Browsing** — Explore Charts, Podcasts, Moods, and Genres.
 
@@ -168,79 +160,11 @@ Ve a la sección **[Releases](../../releases)** de este repositorio y descarga e
 
 ---
 
-## 320 kbps Audio Extension
-
-Want to experience crystal-clear, high-bitrate **320 kbps** audio in Spectralssic?
-
-By default, YouTube Music delivers standard streaming quality. Spectralssic includes built-in support for third-party extension sources, allowing you to stream high-fidelity **320 kbps** audio directly within the app using the official 320 kbps extension!
-
-Visit the official repository to get started:  
-**[https://github.com/SpectralssicApp/320kbs-extension](https://github.com/SpectralssicApp/320kbs-extension)**
-
-### How to Enable 320 kbps Audio:
-
-1. **Visit the Extension Repository**:
-   - Go to [SpectralssicApp/320kbs-extension](https://github.com/SpectralssicApp/320kbs-extension).
-   - Follow the setup and deployment instructions in the repository to deploy or obtain your extension server endpoint.
-
-2. **Add the Server in Spectralssic**:
-   - Open the Spectralssic app on your Android device.
-   - Tap your profile avatar in the top-right corner to open the **Account** sheet.
-   - Tap **Extensions** to open the Extension Sources settings.
-   - Scroll down to the **Add new** section and tap **Add Custom Server**.
-   - Enter a name (such as `320kbps Audio`) and paste your server's endpoint URL.
-   - Save the server.
-
-3. **Set Playback Priority**:
-   - In the **Extensions** menu, ensure **Prefer Extension Audio** is toggled **ON**.
-   - With this enabled, Spectralssic will automatically search and stream high-bitrate 320 kbps audio from your extension before falling back to YouTube Music.
-   - Enjoy studio-quality 320 kbps playback with real-time format and bitrate indicators on the now playing screen!
-
----
-
-## Lossless Audio Extension
-
-Want to experience studio-master **Lossless (FLAC / ALAC)** and **Hi-Res Audio** (up to 24-bit / 192 kHz) directly in Spectralssic?
-
-Spectralssic features a dedicated lossless audio pipeline with bit-perfect DAC pass-through, real-time Bluetooth codec telemetry (LDAC, aptX HD), and live format badges (`FLAC`, `Hi-Res`, `Bit-Perfect`). By connecting the official **Lossless Extension**, you can stream uncompressed, bit-perfect music from lossless providers directly within the app!
-
-Visit the official repository to get started:  
-**[https://github.com/SpectralssicApp/lossless-extension](https://github.com/SpectralssicApp/lossless-extension)**
-
-### How to Enable Lossless Audio:
-
-1. **Visit the Extension Repository**:
-   - Go to [SpectralssicApp/lossless-extension](https://github.com/SpectralssicApp/lossless-extension).
-   - Follow the setup and deployment instructions to deploy your lossless provider instance (e.g., via Vercel, Railway, Docker, or self-hosted server) or obtain your custom lossless endpoint URL.
-
-2. **Add the Lossless Server in Spectralssic**:
-   - Open the Spectralssic app on your Android device.
-   - Tap your profile avatar (or the **Settings** gear icon) to open the **Account / Settings** sheet.
-   - Tap **Extensions** to open the Extension Sources screen.
-   - Scroll down to the **Add new** section and tap **Add Custom Server**.
-   - Enter your server configuration:
-     - **Name**: e.g., `Lossless FLAC` or `Hi-Res Audio`
-     - **Server URL**: Paste your deployed extension endpoint (e.g., `https://your-lossless-server.vercel.app`).
-   - Tap **Done** to save the server.
-
-3. **Configure Playback Priority & Audio Pipeline**:
-   - In the **Extensions** menu, ensure **Prefer Extension Audio** is toggled **ON**.
-   - When enabled, Spectralssic will prioritize searching and streaming uncompressed FLAC/ALAC audio from your lossless server before falling back to YouTube Music.
-   - *(Optional — Audiophile Hardware)*:
-     - **External USB DAC**: Connect a USB DAC via OTG to automatically activate Spectralssic's **Bit-Perfect Audio Pipeline**, bypassing Android's OS resampling engine (`Bit-Perfect • 24-bit / 192 kHz`).
-     - **Hi-Res Bluetooth**: Connect headphones supporting LDAC, aptX HD, or LC3 to view real-time Bluetooth telemetry and the gold **Hi-Res** badge on the player.
-
-4. **Verify Lossless Playback**:
-   - Play any track and expand to the full player screen.
-   - Look for the format badge (e.g., `FLAC 16-bit / 44.1kHz` or `FLAC 24-bit / 96kHz`) next to the playback controls confirming that you are streaming true lossless audio!
-
----
-
 ## Installation & Setup
 
 ### Android Installation
 
-Download the latest pre-compiled APK from the [Releases Page](https://github.com/TU_USUARIO/Spectralssic/releases/latest).
+Download the latest pre-compiled APK from the [Releases Page](https://github.com/mili0109/spectralssic/releases/latest).
 
 <details>
 <summary><b>Building from Source</b></summary>
@@ -249,8 +173,8 @@ Download the latest pre-compiled APK from the [Releases Page](https://github.com
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/TU_USUARIO/Spectralssic.git
-   cd Echo-Music
+   git clone https://github.com/mili0109/spectralssic.git
+   cd spectralssic
    ```
 
 2. **Configure Android SDK**
@@ -281,22 +205,9 @@ Download the latest pre-compiled APK from the [Releases Page](https://github.com
 
 Si quieres apoyar, apoya también a los proyectos de código abierto que lo hacen posible (ver *Special Thanks*).
 
-## Contributors
-
-Without the support of this incredible open-source community, none of this would be possible. Thank you to everyone who has contributed to Spectralssic!
-
-<!-- readme: contributors -start -->
-<table>
-<tr><td align="center"><a href="https://github.com/mili0109"><img src="https://avatars.githubusercontent.com/u/204612464?v=4" width="60" height="60" /></a></td></tr>
-</table>
-<!-- readme: contributors -end -->
-
-
----
-
 ## Special Thanks
 
-Spectralssic (basado en Spectralssic) stands on the shoulders of several excellent open-source projects. Sincere thanks to:
+Spectralssic stands on the shoulders of several excellent open-source projects. Sincere thanks to:
 
 | Project                                                                                                                   | Description                                         |
 | :------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------- |
@@ -304,7 +215,7 @@ Spectralssic (basado en Spectralssic) stands on the shoulders of several excelle
 | **[ArchiveTune](https://github.com/koiverse/ArchiveTune)**                                                                | Material You UI inspiration                         |
 | **[Better Lyrics](https://better-lyrics.boidu.dev/)**                                                                     | Lyrics enhancement and synchronization              |
 | **[SimpMusic](https://github.com/maxrave-dev/SimpMusic)**                                                                 | Lyrics implementation reference                     |
-| **[Music Recognizer](https://github.com/aleksey-saenko/MusicRecognizer)**                                                 | Audio recognition (Echo Find)                       |
+| **[Music Recognizer](https://github.com/aleksey-saenko/MusicRecognizer)**                                                 | Audio recognition (Spectralssic Find)                       |
 | **[BravePipe](https://github.com/bravepipeproject/BravePipe)**                                                            | Decryption handling and backup playback engine      |
 
 ---
@@ -338,8 +249,3 @@ Because we do not host any media files, we cannot process DMCA takedown requests
 <div align="center">
   <p>Licensed under <a href="LICENSE">GPL-3.0</a></p>
 </div>
-#   s p e c t r a l s s i c 
- 
- #   s p e c t r a l s s i c 
- 
- 
