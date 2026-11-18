@@ -509,11 +509,11 @@ object WrappedShareHelper {
         ComposeToImage.saveBitmapAsFile(
           context = context,
           bitmap = bitmap,
-          fileName = "Echo_Wrapped_${data.yearLabel}_${System.currentTimeMillis()}"
+          fileName = "Spectralssic_Wrapped_${data.yearLabel}_${System.currentTimeMillis()}"
         )
       } catch (_: Exception) {
         val cachePath = java.io.File(context.cacheDir, "images").apply { mkdirs() }
-        val imageFile = java.io.File(cachePath, "Echo_Wrapped_${System.currentTimeMillis()}.png")
+        val imageFile = java.io.File(cachePath, "Spectralssic_Wrapped_${System.currentTimeMillis()}.png")
         java.io.FileOutputStream(imageFile).use { out ->
           bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
         }

@@ -426,6 +426,13 @@ constructor(
       }
       is ListenTogetherEvent.RoomCreated -> {
         Timber.tag(TAG).d("Room created: ${event.roomCode}")
+        // Por defecto los invitados pueden pausar, saltar canciones y agregar a la cola.
+        // El anfitrión puede desactivarlo desde la sala.
+        try {
+          client.updateRoomSettings(true)
+        } catch (e: Exception) {
+          Timber.tag(TAG).e(e, "No se pudo activar el control de invitados")
+        }
         try {
 
           val connection = playerConnection

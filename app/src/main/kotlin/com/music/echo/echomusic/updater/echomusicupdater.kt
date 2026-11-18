@@ -341,7 +341,7 @@ fun UpdateScreen(navController: NavHostController) {
                     } else {
                       val urlToDownload =
                         currentStatus.apkUrl
-                          ?: "https://github.com/${echo.music.iad1tya.SpectralssicConfig.GITHUB_REPO}/releases/download/${currentStatus.version}/echomusic.apk"
+                          ?: "https://github.com/${echo.music.iad1tya.SpectralssicConfig.GITHUB_REPO}/releases/download/${currentStatus.version}/spectralssic.apk"
 
                       val constraints =
                         Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()

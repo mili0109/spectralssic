@@ -911,3 +911,10 @@ val ProfileBannerPathKey = stringPreferencesKey("profileBannerPath")
 val ProfilePublicKey = booleanPreferencesKey("profilePublic")
 val ProfileHandleKey = stringPreferencesKey("profileHandle")
 val ShareListeningKey = booleanPreferencesKey("shareListening")
+
+// ---- Anuncios propios ----
+val AnnouncementSeenKey = intPreferencesKey("announcementSeen")
+
+val AppIconColorKey = stringPreferencesKey("appIconColor")
+
+val PinsJsonKey = stringPreferencesKey("profilePinsJson")

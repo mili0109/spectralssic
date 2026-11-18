@@ -25,6 +25,7 @@ data class RemoteProfile(
   val avatarB64: String?,
   val bannerB64: String?,
   val topArtists: List<Map<String, String>>,
+  val pins: List<Map<String, String>>,
   val nowPlaying: Map<String, String>?,
 )
 
@@ -57,6 +58,21 @@ object SocialRepository {
 
   fun signOut() = auth.signOut()
 
+  /** Traduce los errores de Firebase a mensajes que se entiendan. */
+  fun friendly(e: Throwable): String {
+    val m = e.message ?: return "Error desconocido"
+    return when {
+      m.contains("PERMISSION_DENIED", true) || m.contains("insufficient permissions", true) ->
+        "Sin permiso en Firebase: publica las reglas de Firestore (archivo firestore.rules)"
+      m.contains("network", true) || m.contains("UNAVAILABLE", true) -> "Sin conexión a internet"
+      m.contains("password", true) && m.contains("invalid", true) -> "Correo o contraseña incorrectos"
+      m.contains("badly formatted", true) -> "El correo no es válido"
+      m.contains("already in use", true) -> "Ese correo ya tiene una cuenta"
+      m.contains("least 6", true) -> "La contraseña debe tener al menos 6 caracteres"
+      else -> m
+    }
+  }
+
   /** Reclama un @usuario único. Libera el anterior si cambia. */
   suspend fun claimHandle(rawHandle: String, previous: String?): Result<String> = runCatching {
     val uid = currentUid ?: error("Inicia sesión primero")
@@ -67,7 +83,7 @@ object SocialRepository {
     val ref = db.collection("usernames").document(handle)
     val existing = ref.get().await()
     if (existing.exists() && existing.getString("uid") != uid) error("Ese usuario ya existe")
-    ref.set(mapOf("uid" to uid)).await()
+    if (!existing.exists()) ref.set(mapOf("uid" to uid)).await()
     if (!previous.isNullOrEmpty() && previous != handle) {
       runCatching { db.collection("usernames").document(previous).delete().await() }
     }
@@ -82,6 +98,7 @@ object SocialRepository {
     avatarPath: String?,
     bannerPath: String?,
     topArtists: List<Map<String, String>>,
+    pins: List<Map<String, String>> = emptyList(),
   ): Result<Unit> = runCatching {
     val uid = currentUid ?: error("Inicia sesión primero")
     val data = mutableMapOf<String, Any?>(
@@ -89,6 +106,7 @@ object SocialRepository {
       "bio" to bio,
       "isPublic" to isPublic,
       "topArtists" to topArtists,
+      "pins" to pins,
       "updatedAt" to FieldValue.serverTimestamp(),
     )
     encodeImage(avatarPath, 256, 256)?.let { data["avatarB64"] = it }
@@ -190,6 +208,7 @@ object SocialRepository {
       avatarB64 = d.getString("avatarB64"),
       bannerB64 = d.getString("bannerB64"),
       topArtists = (d.get("topArtists") as? List<Map<String, String>>) ?: emptyList(),
+      pins = (d.get("pins") as? List<Map<String, String>>) ?: emptyList(),
       nowPlaying = d.get("nowPlaying") as? Map<String, String>,
     )
   }

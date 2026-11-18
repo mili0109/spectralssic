@@ -1850,6 +1850,8 @@ class MainActivity : ComponentActivity() {
             )
           }
 
+          echo.music.iad1tya.announcement.AnnouncementHost()
+
           if (showSettingDialoge) {
             SettingDialoge(
               onDismissRequest = { showSettingDialoge = false },

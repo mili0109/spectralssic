@@ -33,8 +33,8 @@ android {
     applicationId = "com.otavolrosinante.spectralssic"
     minSdk = 26
     targetSdk = 36
-    versionCode = 167
-    versionName = "1.4.6"
+    versionCode = 168
+    versionName = "1.5.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
@@ -248,13 +248,13 @@ dependencies {
   implementation(project(":usbaudio"))
 
   // Firebase para perfiles y amigos (todas las variantes)
-  implementation(platform("com.google.firebase:firebase-bom:35.0.0"))
+  implementation(platform("com.google.firebase:firebase-bom:34.19.0"))
   implementation("com.google.firebase:firebase-auth")
   implementation("com.google.firebase:firebase-firestore")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2")
 
   // Firebase - GMS flavor only (excluded from F-Droid / FOSS builds)
-  "gmsImplementation"(platform("com.google.firebase:firebase-bom:35.0.0"))
+  "gmsImplementation"(platform("com.google.firebase:firebase-bom:34.19.0"))
   "gmsImplementation"("com.google.firebase:firebase-analytics")
   "gmsImplementation"("com.google.firebase:firebase-crashlytics")
 

@@ -37,7 +37,7 @@ class SocialViewModel @Inject constructor() : ViewModel() {
     viewModelScope.launch {
       busy.value = true
       val r = block()
-      message.value = r.exceptionOrNull()?.let { it.message ?: "Error" } ?: ok
+      message.value = r.exceptionOrNull()?.let { SocialRepository.friendly(it) } ?: ok
       busy.value = false
     }
   }
@@ -53,7 +53,35 @@ class SocialViewModel @Inject constructor() : ViewModel() {
       busy.value = true
       val r = SocialRepository.claimHandle(handle, previous)
       r.onSuccess { onDone(it); message.value = "Usuario guardado: @$it" }
-      r.onFailure { message.value = it.message ?: "Error" }
+      r.onFailure { message.value = SocialRepository.friendly(it) }
+      busy.value = false
+    }
+  }
+
+  fun publishWithHandle(
+    handleInput: String,
+    savedHandle: String,
+    onHandle: (String) -> Unit,
+    name: String,
+    bio: String,
+    isPublic: Boolean,
+    avatarPath: String?,
+    bannerPath: String?,
+    topArtists: List<Map<String, String>>,
+    pins: List<Map<String, String>> = emptyList(),
+  ) {
+    viewModelScope.launch {
+      busy.value = true
+      var ok = true
+      if (handleInput.isNotBlank() && handleInput.trim().lowercase().removePrefix("@") != savedHandle) {
+        val r = SocialRepository.claimHandle(handleInput, savedHandle)
+        r.onSuccess { onHandle(it) }
+        r.onFailure { message.value = SocialRepository.friendly(it); ok = false }
+      }
+      if (ok) {
+        val r = SocialRepository.publishProfile(name, bio, isPublic, avatarPath, bannerPath, topArtists, pins)
+        message.value = r.exceptionOrNull()?.let { SocialRepository.friendly(it) } ?: "Perfil publicado"
+      }
       busy.value = false
     }
   }
@@ -76,7 +104,7 @@ class SocialViewModel @Inject constructor() : ViewModel() {
       busy.value = true
       val found = SocialRepository.findUidByHandle(handle)
       val r = found.getOrNull()?.let { SocialRepository.sendRequest(it, myName) } ?: Result.failure(found.exceptionOrNull() ?: Exception("No existe ese usuario"))
-      message.value = r.exceptionOrNull()?.let { it.message ?: "Error" } ?: "Solicitud enviada"
+      message.value = r.exceptionOrNull()?.let { SocialRepository.friendly(it) } ?: "Solicitud enviada a @${handle.trim().removePrefix("@")}"
       busy.value = false
     }
   }
@@ -87,7 +115,7 @@ class SocialViewModel @Inject constructor() : ViewModel() {
       busy.value = true
       SocialRepository.findUidByHandle(handle)
         .onSuccess { onFound(it) }
-        .onFailure { message.value = it.message ?: "No existe ese usuario" }
+        .onFailure { message.value = SocialRepository.friendly(it) }
       busy.value = false
     }
   }

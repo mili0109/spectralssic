@@ -952,6 +952,15 @@ fun AppearanceSettings(
 
           add(
             Material3SettingsItem(
+              icon = painterResource(R.drawable.palette),
+              title = { Text("Ícono de la app") },
+              description = { Text("Morado, azul, rosa, verde, naranja o blanco") },
+              onClick = { navController.navigate("settings/appearance/app_icon") }
+            )
+          )
+
+          add(
+            Material3SettingsItem(
               isHighlighted = (highlightKey == stringResource(R.string.theme)),
               icon = painterResource(R.drawable.palette),
               title = { Text(stringResource(R.string.theme)) },

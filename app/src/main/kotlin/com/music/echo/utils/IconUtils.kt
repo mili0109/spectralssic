@@ -23,6 +23,25 @@ enum class AppIconType(val value: Int) {
 }
 
 object IconUtils {
+  /** Colores disponibles del ícono de Spectralssic. "purple" es el predeterminado. */
+  val SpectralssicIcons =
+    listOf("purple" to "Morado", "blue" to "Azul", "pink" to "Rosa", "green" to "Verde", "orange" to "Naranja", "mono" to "Blanco")
+
+  fun setSpectralssicIcon(context: Context, key: String) {
+    val pm = context.packageManager
+    SpectralssicIcons.forEach { (k, _) ->
+      val cls = if (k == "purple") "echo.music.iad1tya.MainActivityAlias" else "echo.music.iad1tya.Icon" + k.replaceFirstChar { it.uppercase() }
+      val state =
+        if (k == key) android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        else android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+      try {
+        pm.setComponentEnabledSetting(ComponentName(context, cls), state, android.content.pm.PackageManager.DONT_KILL_APP)
+      } catch (e: Exception) {
+        // ignorar
+      }
+    }
+  }
+
   fun setIcon(context: Context, iconType: AppIconType) {
     // Los íconos alternativos fueron eliminados; solo existe el ícono de Spectralssic.
     return

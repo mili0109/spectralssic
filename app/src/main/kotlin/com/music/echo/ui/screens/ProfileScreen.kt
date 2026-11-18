@@ -32,6 +32,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +50,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import echo.music.iad1tya.R
+import echo.music.iad1tya.constants.PinsJsonKey
 import echo.music.iad1tya.constants.ProfileAvatarPathKey
 import echo.music.iad1tya.constants.ProfileBannerPathKey
 import echo.music.iad1tya.constants.ProfileBioKey
@@ -66,6 +69,9 @@ fun ProfileScreen(navController: NavController, viewModel: ProfileViewModel = hi
   var avatarPath by rememberPreference(ProfileAvatarPathKey, "")
   var bannerPath by rememberPreference(ProfileBannerPathKey, "")
   val topArtists by viewModel.topArtists.collectAsState()
+  var pinsJson by rememberPreference(PinsJsonKey, "")
+  val pins = remember(pinsJson) { echo.music.iad1tya.social.PinsStore.fromJson(pinsJson) }
+  var showAddPin by remember { mutableStateOf(false) }
 
   val avatarPicker =
     rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -156,6 +162,31 @@ fun ProfileScreen(navController: NavController, viewModel: ProfileViewModel = hi
           label = { Text("Descripción") },
           modifier = Modifier.fillMaxWidth()
         )
+
+        Text("Mis pines", style = MaterialTheme.typography.titleMedium)
+        OutlinedButton(
+          enabled = pins.size < echo.music.iad1tya.social.PinsStore.MAX_PINS,
+          onClick = { showAddPin = true },
+          modifier = Modifier.fillMaxWidth()
+        ) {
+          Text("Agregar álbum o artista")
+        }
+        if (pins.isNotEmpty()) {
+          PinsGrid(pins) { removed ->
+            pinsJson = echo.music.iad1tya.social.PinsStore.toJson(pins - removed)
+          }
+        }
+        if (showAddPin) {
+          PinSearchDialog(
+            onDismiss = { showAddPin = false },
+            onPick = { pin ->
+              if (pins.none { it.cover == pin.cover }) {
+                pinsJson = echo.music.iad1tya.social.PinsStore.toJson(pins + pin)
+              }
+              showAddPin = false
+            }
+          )
+        }
 
         Text("Mis artistas más escuchados", style = MaterialTheme.typography.titleMedium)
         if (topArtists.isEmpty()) {

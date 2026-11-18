@@ -1,0 +1,20 @@
+{
+  "description": "Nueva versión de Spectralssic",
+  "changelog": [
+    {
+      "title": "Novedades",
+      "items": [
+        "Perfil con pines de álbumes y artistas",
+        "Mejoras en amigos y salas",
+        "Nuevos íconos de la app"
+      ]
+    },
+    {
+      "title": "Correcciones",
+      "items": [
+        "Arreglada la búsqueda de amigos",
+        "El teclado ya no tapa el campo de búsqueda"
+      ]
+    }
+  ]
+}

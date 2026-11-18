@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -41,6 +42,7 @@ import echo.music.iad1tya.constants.ProfileBannerPathKey
 import echo.music.iad1tya.constants.ProfileBioKey
 import echo.music.iad1tya.constants.ProfileHandleKey
 import echo.music.iad1tya.constants.ProfileNameKey
+import echo.music.iad1tya.constants.PinsJsonKey
 import echo.music.iad1tya.constants.ProfilePublicKey
 import echo.music.iad1tya.constants.ShareListeningKey
 import echo.music.iad1tya.utils.rememberPreference
@@ -68,6 +70,7 @@ fun SocialScreen(
   var isPublic by rememberPreference(ProfilePublicKey, false)
   var handle by rememberPreference(ProfileHandleKey, "")
   var shareListening by rememberPreference(ShareListeningKey, false)
+  val pinsJson by rememberPreference(PinsJsonKey, "")
 
   var email by remember { mutableStateOf("") }
   var password by remember { mutableStateOf("") }
@@ -90,7 +93,7 @@ fun SocialScreen(
     }
   ) { padding ->
     Column(
-      Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(16.dp),
+      Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(16.dp),
       verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
       message?.let { Text(it, color = MaterialTheme.colorScheme.primary) }
@@ -127,6 +130,15 @@ fun SocialScreen(
           singleLine = true,
           modifier = Modifier.fillMaxWidth()
         )
+        if (handle.isEmpty()) {
+          Text(
+            "Primero guarda tu usuario: sin él nadie podrá encontrarte.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.error
+          )
+        } else {
+          Text("Tu usuario: @$handle", style = MaterialTheme.typography.bodySmall)
+        }
         OutlinedButton(
           enabled = !busy,
           onClick = { viewModel.claimHandle(handleInput, handle) { handle = it } }
@@ -154,7 +166,11 @@ fun SocialScreen(
         Button(
           enabled = !busy,
           onClick = {
-            viewModel.publish(
+            viewModel.publishWithHandle(
+              handleInput = handleInput,
+              savedHandle = handle,
+              onHandle = { handle = it },
+              pins = echo.music.iad1tya.social.PinsStore.toMaps(echo.music.iad1tya.social.PinsStore.fromJson(pinsJson)),
               name = name,
               bio = bio,
               isPublic = isPublic,

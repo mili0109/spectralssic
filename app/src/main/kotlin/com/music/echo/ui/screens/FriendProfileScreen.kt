@@ -126,6 +126,11 @@ fun FriendProfileScreen(navController: NavController, uid: String) {
             }
           }
 
+          if (p.pins.isNotEmpty()) {
+            Text("Pines", style = MaterialTheme.typography.titleMedium)
+            PinsGrid(echo.music.iad1tya.social.PinsStore.fromMaps(p.pins))
+          }
+
           if (p.topArtists.isNotEmpty()) {
             Text("Artistas más escuchados", style = MaterialTheme.typography.titleMedium)
             p.topArtists.forEachIndexed { i, a ->

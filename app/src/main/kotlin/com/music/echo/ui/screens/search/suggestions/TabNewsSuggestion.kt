@@ -233,17 +233,6 @@ fun SuggestionsTabContent(
             modifier = Modifier.fillMaxWidth().padding(top = 48.dp, bottom = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
           ) {
-            Text(
-              text = "Data from Apple Music",
-              style = MaterialTheme.typography.labelSmall,
-              color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-            )
-            Text(
-              text = "echo-music",
-              style = MaterialTheme.typography.labelSmall,
-              color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-              fontWeight = FontWeight.Bold
-            )
           }
         }
       }
@@ -267,7 +256,7 @@ fun TrendingAppleMusicSection(
 
   Column(modifier = Modifier.fillMaxWidth()) {
     Text(
-      text = "Apple Music Top 100",
+      text = "Top 100",
       style = MaterialTheme.typography.titleLarge,
       modifier = Modifier.padding(horizontal = 16.dp).padding(top = 32.dp)
     )
@@ -330,7 +319,7 @@ fun TrendingAppleMusicSection(
               )
               Spacer(Modifier.width(12.dp))
               Text(
-                "View more on Apple Music",
+                "Ver más",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold

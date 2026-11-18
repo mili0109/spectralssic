@@ -431,7 +431,7 @@ fun NavGraphBuilder.navigationBuilder(
   }
 
   composable("settings/appearance/app_icon") {
-    AppIconSettingsScreen(navController, activity, snackbarHostState)
+    echo.music.iad1tya.ui.screens.settings.SpectralssicIconScreen(navController)
   }
 
   composable("settings/appearance/font") {

@@ -54,9 +54,13 @@ jobs:
           APK=$(find app/build/outputs/apk -name "*.apk" | head -n 1)
           VERSION="${GITHUB_REF_NAME:-manual}"
           cp "$APK" "Spectralssic-${VERSION}.apk"
+          # Si existe changelog.json (mensaje de actualización), se adjunta al release
+          if [ ! -f changelog.json ]; then echo '{"description":"","changelog":[]}' > changelog.json; fi
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: Spectralssic-*.apk
+          files: |
+            Spectralssic-*.apk
+            changelog.json
           generate_release_notes: true

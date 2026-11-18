@@ -6,6 +6,6 @@ package echo.music.iad1tya
  * La app lo usa para buscar actualizaciones en tus Releases.
  */
 object SpectralssicConfig {
-  const val GITHUB_REPO = "TU_USUARIO/Spectralssic"
+  const val GITHUB_REPO = "mili0109/spectralssic"
   const val DISCORD_URL = "https://discord.gg/QSuyguXgg"
 }
